@@ -1,0 +1,14 @@
+#Motors Base_Node Config
+wheel_dist:               0.380
+wheel_radius:             0.0325
+ticks_per_rotation:       1632   
+max_drive_secs:           1
+max_qpps:                 3700
+base_frame_id:            'base_link'
+odom_frame_id:            'odom'
+loop_hz:                  10
+deadman_secs:             3
+cmd_topic:                '/cmd_vel'
+roboclaw_stats_topic:     'roboclaw/stats'
+speed_command_topic:      '~speed_command'
+odom_topoc:               '/roboclaw_odom'

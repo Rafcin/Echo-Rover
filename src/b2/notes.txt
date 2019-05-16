@@ -1,0 +1,75 @@
+=-=-=-=-=
+| Nodes |
+=-=-=-=-=
+
+---------------
+roboclaw_driver
+---------------
+INPUT:  roboclaw/speed_command
+    Msg: roboclaw_driver.SpeedCommand
+    From: base_node
+
+OUTPUT: roboclaw/stats
+    Msg: roboclaw_driver.Stats
+
+
+---------
+base_node
+---------
+INPUT:  roboclaw/stats
+    Msg: roboclaw_driver.Stats
+    From: roboclaw_node 
+
+INPUT:  base_node/cmd_vel
+    Msg: Twist
+    From: pilot_node or teleop_node
+
+OUTPUT: base_node/speed_command
+    Msg: roboclaw_driver.SpeedCommand
+    To: roboclaw_node
+
+OUTPUT: base_ndoe/odom
+    Msg: Odometry
+    To: 
+
+Currently, the base node keeps track of its Pose and Velocities relative to the World frame.
+This could get moved out of the base into another node (like the Pilot) so the base only needs
+to be concerned with operating the base. Then other nodes can focus on determining the current
+location using other types of sensors.
+
+------------
+sensors_node
+------------
+OUTPUT: ir_sensors/proximity
+    Msg: b2.Proximity
+    To: pilot_node
+
+
+-----------
+pilot_node
+----------
+INPUT: ir_sensors/proximity
+    Msg: b2.Proximity
+    From: sensors_node
+
+INPUT: base_node/odom
+    Msg: Odometry
+    From: base_node
+
+OUTPUT: base_node/cmd_vel
+    Msg: Twist
+    To: base_node
+
+
+-----------
+teleop_node
+-----------
+OUTPUT: base_node/cmd_vel
+    Msg: Twist
+    To: base_node
+
+
+=-=-=-=-=-=-=-=-=
+| industrial_ci |
+=-=-=-=-=-=-=-=-=
+rosrun industrial_ci run_travis -

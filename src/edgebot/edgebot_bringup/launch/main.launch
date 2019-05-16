@@ -1,0 +1,96 @@
+<launch>
+  <!-- ON|OFF Rtabmap -->
+  <arg name="rtab"          default="true"  />
+  <!-- ON|OFF Lidar -->
+  <arg name="motors"          default="true"  />
+  <!-- ON|OFF Localization -->
+  <arg name="tele"          default="true"  />
+  <!-- ON|OFF Move -->
+  <arg name="move"          default="true"  />
+  <!-- ON|OFF Exploration -->
+  <arg name="explore"          default="false"  />
+  <!-- ON|OFF Zed -->
+  <arg name="zed"          default="false"  />
+  <!-- Find Objects -->
+  <arg name="findobjects"   default="true" />
+  <!-- Explore Lite -->
+  <arg name="exlite"   default="true" />
+  <!-- RPLIDAR ON|OFF -->
+  <arg name="lidar"   default="true" />
+  <!-- OBJD ON|OFF -->
+  <arg name="objd"   default="false" />
+  
+  
+
+  <!-- RTABMAP -->
+  <group if="$(arg rtab)">
+    <include file="$(find edgebot_navigation)/launch/zed_rtab.launch">
+
+    </include>
+  </group>
+
+  <!-- MOTORS -->
+  <group if="$(arg motors)">
+    <include file="$(find edgebot_control)/launch/motors.launch">
+
+    </include>
+  </group>
+
+  <!--  -->
+  <group if="$(arg tele)">
+    <include file="$(find edgebot_control)/launch/teleop.launch">
+
+    </include>
+  </group>
+
+  <!--  -->
+  <group if="$(arg move)">
+    <include file="$(find edgebot_control)/launch/movebase.launch">
+
+    </include>
+  </group>
+
+ <group if="$(arg findobjects)">
+   <include file="$(find edgebot_bringup)/launch/include/findobj.launch">
+
+    </include>
+  </group>
+
+ <group if="$(arg exlite)">
+   <include file="$(find edgebot_navigation)/launch/explorelite.launch">
+
+    </include>
+  </group>
+
+  <!-- RPLIDAR -->
+  <group if="$(arg lidar)">
+    <include file="$(find edgebot_bringup)/launch/include/rplidar.launch">
+
+    </include>
+  </group>
+
+  <group if="$(arg objd)">
+    <include file="$(find edgebot_bringup)/launch/include/object_detection.launch">
+
+    </include>
+  </group>
+
+  <remap from="/cmd_vel" to="roboclaw/speed_command"/>
+
+
+  <arg name="model" />
+  <arg name="gui"
+    default="False" />
+  <param name="robot_description"
+    textfile="$(find edgebot_description)/urdf/wildframe.urdf" />
+  <param name="use_gui"
+    value="$(arg gui)" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+  
+  </node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher"
+    type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz"
+    args="-d $(find edgebot_visualization)/rviz/urdf.rviz" />
+
+</launch>

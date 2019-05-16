@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This is used to run the joystick teleop node, with the ROS joy node.
+    This only launches these joystick related nodes. To launch other nodes that this node
+    communicates with (like base_node) also launch their launch files.
+-->
+<launch>
+
+    <node name="joy_node" pkg="joy" type="joy_node"/>
+
+    <node name="teleop_node" pkg="b2_base" type="teleop_node.py">
+        <param name="~max_linear" type="double" value="0.4"/>
+        <param name="~max_angular" type="double" value="3.0"/>
+    </node>
+
+</launch>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This is used for node-level testing of the base_node.
+    It lauches the base node, roboclaw stub, and the testing node.
+-->
+<launch>
+
+    <node name="pilot_node" pkg="b2" type="pilot_node.py">
+        <!-- <param name="loop_hz" type="int" value="1"/> -->
+        <param name="max_fwd_speed" type="double" value="0.5"/>
+        <!-- <param name="min_fwd_speed" type="double" value="0.1"/> -->
+        <param name="max_turn_speed" type="double" value="0.7853981634"/>
+        <!-- <param name="min_turn_speed" type="double" value="0.1"/> -->
+        <param name="turn_degrees" type="int" value="90"/>
+        <param name="turn_degree_tolerance" type="int" value="5"/>
+        <param name="cmd_topic" type="str" value="base_node/cmd_vel"/>
+        <param name="proximity_topic" type="str" value="ir_sensors/proximity"/>
+        <param name="odom_topic" type="str" value="base_node/odom"/>
+    </node>
+
+    <node name="base_node" pkg="b2" type="base_node.py">
+        <param name="wheel_dist" type="double" value="0.220"/>
+        <param name="wheel_radius" type="double" value="0.0325"/>
+        <param name="ticks_per_rotation" type="int" value="1632"/>
+        <param name="max_drive_secs" type="int" value="1"/>
+        <param name="max_qpps" type="int" value="3700"/>
+        <param name="base_frame_id" type="str" value="base_link"/>
+        <param name="odom_frame_id" type="str" value="world"/>
+        <param name="loop_hz" type="int" value="10"/>
+        <param name="deadman_secs" type="int" value="10"/>
+        <param name="cmd_topic" type="str" value="base_node/cmd_vel"/>
+        <param name="roboclaw_stats_topic" type="str" value="roboclaw/stats"/>
+        <param name="speed_command_topic" type="str" value="~speed_command"/>
+        <param name="odom_topic" type="str" value="~odom"/>
+    </node>
+
+    <node name="roboclaw" pkg="roboclaw_driver" type="roboclaw_node.py">
+        <param name="test_mode" type="bool" value="true"/>
+        <param name="dev_name" type="str" value="/dev/ttyACM0"/>
+        <param name="baud" type="int" value="115200"/>
+        <param name="address" type="int" value="128"/>
+        <param name="loop_hz" type="int" value="100"/>
+        <param name="deadman_secs" type="int" value="3"/>
+        <param name="speed_cmd_topic" type="str" value="roboclaw/speed_command"/>
+        <param name="stats_topic" type="str" value="roboclaw/stats"/>
+    </node>
+     
+    <test test-name="pilot_node_test" pkg="b2" type="test_pilot_node.py">
+        <param name="proximity_topic" type="str" value="ir_sensors/proximity"/>
+        <param name="odom_topic" type="str" value="base_node/odom"/>
+    </test>
+
+</launch>

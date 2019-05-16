@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>edgebot_control</name>
+  <version>0.1.0</version>
+  <description>
+	This is the configuration package for the robot Panther.
+  </description>
+
+  
+  <maintainer email="rafcin.s@gmail.com">Raf Szuminski</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+
+</package>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Define type of localization -->
+    <arg name="two_d_mode" default="true"/>
+    <!-- Print diagnostic filter -->
+    <arg name="diagnostics" default="true"/>
+    <!-- Type of filter -->
+    <!-- ekf= Extended Kalman Filter -->
+    <!-- ukf= Unscented Kalman Filter -->
+    <arg name="filter" default="ukf"/>
+
+    <!-- Launch EKF|UKF localization -->
+    <node pkg="robot_localization" type="$(arg filter)_localization_node" name="$(arg filter)_localization" output="screen">
+        <!-- Load definition filter -->
+        <rosparam command="load" file="$(find edgebot_bringup)/config/localization.yaml" />
+        <!-- Set 3D localization -->
+        <param name="two_d_mode" value="$(arg two_d_mode)" />
+        <!-- Print diagnostic -->
+        <param name="print_diagnostics" value="$(arg diagnostics)" />
+        <!-- Remap inital pose. Compliant with RVIZ -->
+        <remap from="/set_pose" to="/initialpose" />
+        <remap from="/odometry/filtered" to="/odom"/>
+    </node>
+	    
+</launch>

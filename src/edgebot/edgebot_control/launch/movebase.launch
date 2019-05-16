@@ -1,0 +1,25 @@
+<launch>
+
+  <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen" clear_params="true"> <!--output="screen"-->
+
+    <rosparam file="$(find edgebot_control)/config/teb_config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find edgebot_control)/config/teb_config/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find edgebot_control)/config/teb_config/move_base.yaml" command="load" />
+
+    
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="planner_frequency" value="1.0" />
+    <param name="planner_patience" value="5.0" />
+
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="10.0" />
+
+    <remap from="roboclaw/speed_command" to="~cmd_vel" />
+    <remap from="grid_map"  to="/map"/>
+    <remap from="move_base" to="/planner/move_base"/>
+
+  </node>
+
+</launch>
+

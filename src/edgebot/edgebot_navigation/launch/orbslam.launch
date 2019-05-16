@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+ <!-- Orbslam2 Stereo -->
+  <node name="orb_slam2_r200_stereo" pkg="orb_slam2_ros"
+      type="orb_slam2_ros_stereo" args="
+          $(find orb_slam2_ros)/orb_slam2/Vocabulary/ORBvoc.txt
+          $(find orb_slam2_ros)/orb_slam2/config/Zed.yaml"
+      output="screen">
+       <remap from="image_left/image_color_rect" to="/zed/left/image_rect_color" />
+       <remap from="image_right/image_color_rect" to="/zed/right/image_rect_color" />
+
+       <param name="publish_pointcloud" type="bool" value="true" />
+       <!--
+       <param name="pointcloud_frame_id" type="string" value="orb_pc_link" />
+       <param name="camera_frame_id" type="string" value="camera_link" />
+       -->
+  </node>
+
+    <!-- Zed Camera -->
+    <arg name="svo_file"                default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
+    
+    <!-- Launch ZED camera wrapper -->
+    <include file="$(find edgebot)/launch/include/zed.launch">
+        <arg name="camera_model"        value="0" /> <!-- 0=ZED, 1=ZEDM-->
+        <arg name="svo_file"            value="$(arg svo_file)" />
+    </include>
+  
+    <!-- Launch rivz display -->
+    <!-- /orb_slam2_r200_stereo/map_points -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+		<param name="resolution" value="0.05" />
+		
+		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+		<param name="frame_id" type="string" value="odom" />
+		
+		<!-- maximum range to integrate (speedup!) -->
+		<param name="sensor_model/max_range" value="5.0" />
+		
+		<!-- data source to integrate (PointCloud2) -->
+		<remap from="cloud_in" to="/orb_slam2_r200_stereo/map_points" />
+	
+	</node>
+
+</launch>

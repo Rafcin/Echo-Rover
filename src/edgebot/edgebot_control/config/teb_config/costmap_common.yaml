@@ -1,0 +1,34 @@
+footprint: [[-0.25, -0.165], [-0.25, 0.165], [0.21, 0.165], [0.21, -0.165]]
+
+transform_tolerance: 0.2
+map_type: costmap
+
+inflation_layer:
+    enabled:              true
+    cost_scaling_factor:  2.0  # exponential rate at which the obstacle cost drops off (default: 10)
+    inflation_radius:     0.23  # max. distance from an obstacle at which costs are incurred for planning paths.
+
+static_layer:
+    enabled:              true
+    map_topic:            "map"
+
+obstacle_layer:
+    enabled: true
+    obstacle_range: 4.5
+    raytrace_range: 3.0
+    track_unknown_space: true
+    combination_method: 1
+
+    observation_sources: scan 
+    #stereo_cam_vision:
+    #    data_type: PointCloud2
+    #    topic: /rtabmap/cloud_obstacles
+    #    sensor_frame: zed_camera_center
+    #    marking: true
+    #    clearing: true
+    scan:
+        data_type: LaserScan
+        topic: /scan
+        sensor_frame: laser_frame
+        marking: true
+        clearing: true

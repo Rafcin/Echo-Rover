@@ -1,0 +1,4 @@
+# pip-Adafruit-MCP3008:
+#  ubuntu:
+#   pip:
+#     packages: [Adafruit-MCP3008]

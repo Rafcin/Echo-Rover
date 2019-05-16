@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+        <rosparam file="$(find edgebot_navigation)/config/exlite.yaml" command="load" />
+    </node>
+    <!--
+        <param name="costmap_topic" value="move_base/global_costmap/costmap"/>
+        <param name="costmap_updates_topic" value="move_base/global_costmap/costmap_updates"/>
+     -->
+</launch>

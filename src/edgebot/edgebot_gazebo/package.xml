@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>edgebot_gazebo</name>
+  <version>0.1.0</version>
+  <description>
+	This is a list of all demo avaiable for robot
+  </description>
+
+  
+  <maintainer email="rafcin.s@gmail.com">Raf Szuminski</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+
+  <run_depend>edgebot_description</run_depend>
+
+
+</package>

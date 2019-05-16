@@ -1,0 +1,94 @@
+recovery_behaviors:
+    - name: aggressive_reset
+      type: clear_costmap_recovery/ClearCostmapRecovery
+
+# Configuration for recovery behaviors
+aggressive_reset:
+  # When doing an aggressive reset, remove all voxels from the
+  # costmap.
+    reset_distance: 0.01
+
+# See also costmap_common_params.yaml for additional parameters set
+# for the two costmaps.
+local_costmap:
+    global_frame: map
+    robot_base_frame: base_link
+
+    update_frequency: 10
+    publish_frequency: 10
+    static_map: false
+    rolling_window: true
+    width: 20
+    height: 20
+    resolution: 0.1
+    transform_tolerance: 0.5
+
+    plugins:
+    # - {name: static_layer,        type: "costmap_2d::StaticLayer"}
+    - {name: obstacle_layer,        type: "costmap_2d::ObstacleLayer"}
+    - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+
+global_costmap:
+    global_frame: map
+    robot_base_frame: base_link
+    update_frequency: 9
+    publish_frequency: 9
+    static_map: false
+
+    width: 100
+    height: 100
+    resolution: 0.05
+    origin_x: -50.0
+    origin_y: -50.0
+
+    transform_tolerance: 0.5
+    
+    # plugins:
+    # - {name: static_layer,          type: "costmap_2d::StaticLayer"}
+    # - {name: obstacle_layer,        type: "costmap_2d::VoxelLayer"}
+    # - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+
+
+TebLocalPlannerROS:
+    odom_topic: /zed/zed_node/odom
+
+    # Trajectory
+
+    teb_autosize: True
+    dt_ref: 0.1
+    dt_hysteresis: 0.1
+    global_plan_overwrite_orientation: True
+    max_global_plan_lookahead_dist: 5.0
+    feasibility_check_no_poses: 5
+
+    # Robot
+         
+    wheelbase: 0.3
+    cmd_angle_instead_rotvel: false
+
+    max_vel_x: 0.31
+    max_vel_x_backwards: 0.31
+    max_vel_theta: 0.3
+    acc_lim_x: 0.3
+    acc_lim_theta: 0.5
+    min_turning_radius: 0.0
+    
+    footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+      type: "circular"
+      radius: 0.3 
+
+    # GoalTolerance
+
+    xy_goal_tolerance: 0.2
+    yaw_goal_tolerance: 0.1
+    free_goal_vel: False
+
+    # Obstacles
+
+    min_obstacle_dist: 1.5
+    include_costmap_obstacles: True
+    costmap_obstacles_behind_robot_dist: 1.0
+    obstacle_poses_affected: 5
+    # costmap_converter_plugin: ""
+    # costmap_converter_spin_thread: True
+    # costmap_converter_rate: 5

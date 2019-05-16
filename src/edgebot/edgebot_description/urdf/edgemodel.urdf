@@ -1,0 +1,551 @@
+<robot
+  name="edgebot">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.438899308172859 0.237221351702204 0.19509484713464"
+        rpy="0 0 0" />
+      <mass
+        value="0.884153023584512" />
+      <inertia
+        ixx="0.00200090951871897"
+        ixy="-9.16844014314678E-06"
+        ixz="-3.3586389738726E-08"
+        iyy="0.0103060638122228"
+        iyz="4.06239521848358E-07"
+        izz="0.0103570368597873" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="frame_link">
+    <inertial>
+      <origin
+        xyz="8.20485013318661E-05 -0.000596551625445085 -0.0430605364621666"
+        rpy="0 0 0" />
+      <mass
+        value="3.72036686426727" />
+      <inertia
+        ixx="0.0621147759556058"
+        ixy="3.38192741319859E-05"
+        ixz="0.000139266157997626"
+        iyy="0.0459219970034612"
+        iyz="0.000205960521453552"
+        izz="0.0996556020502554" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frame_to_base"
+    type="fixed">
+    <origin
+      xyz="0.438363096971295 -0.195314127170782 0.26661437674691"
+      rpy="0.003636955004639 -0.00371282137385339 1.56875682268059" />
+    <parent
+      link="base_link" />
+    <child
+      link="frame_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="0.0746147372789705 0.00174526625830648 -0.042201430582303"
+        rpy="0 0 0" />
+      <mass
+        value="3.72036686426727" />
+      <inertia
+        ixx="0.045921141268143"
+        ixy="-2.47246095227085E-07"
+        ixz="1.06536801120577E-05"
+        iyy="0.0621143267934617"
+        iyz="-2.20972362768415E-08"
+        izz="0.0996569069477176" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_to_base"
+    type="fixed">
+    <origin
+      xyz="0.00213616102338199 -0.0750536231042212 -0.000595364317615865"
+      rpy="0.00372023121297239 0.00362937514880036 1.57283583028442" />
+    <parent
+      link="frame_link" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="0.000241032887169063 0.000440431294919552 0.0430618198597056"
+        rpy="0 0 0" />
+      <mass
+        value="3.72036686426727" />
+      <inertia
+        ixx="0.0621143267934617"
+        ixy="-2.4724609524641E-07"
+        ixz="-2.2097236273383E-08"
+        iyy="0.045921141268143"
+        iyz="1.06536801126496E-05"
+        izz="0.0996569069477177" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_to_base"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="3.13796325332559 0.00372020671076645 0.00202600134216019" />
+    <parent
+      link="frame_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="zed_link">
+    <inertial>
+      <origin
+        xyz="0.000895251962008348 -0.0575803011913124 0.741431568638492"
+        rpy="0 0 0" />
+      <mass
+        value="3.72036686426726" />
+      <inertia
+        ixx="0.0621143267934617"
+        ixy="-2.47246095227091E-07"
+        ixz="-2.20972362777158E-08"
+        iyy="0.0459211412681429"
+        iyz="1.06536801123543E-05"
+        izz="0.0996569069477176" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="zed_to_frame"
+    type="fixed">
+    <origin
+      xyz="0.00205703559283704 -0.0554816388733477 0.698573328837194"
+      rpy="3.13796325332558 0.00372020671076645 0.00202600134216019" />
+    <parent
+      link="frame_link" />
+    <child
+      link="zed_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.01484335935403 0.00298864913279337 -0.0247823943103704"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334802594439" />
+      <inertia
+        ixx="9.06314781293296E-05"
+        ixy="-1.42981393019443E-20"
+        ixz="1.31102031106685E-13"
+        iyy="9.06314781293297E-05"
+        iyz="9.8411991848432E-13"
+        izz="1.38014827251105E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.603617204869533 -0.101542452042108 0.216463837102284"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_left_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.0148433593679134 0.00298864913743596 -0.0252175055794878"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334802789317" />
+      <inertia
+        ixx="9.06314983932413E-05"
+        ixy="-1.6940658945086E-20"
+        ixz="-9.68623500431622E-14"
+        iyy="9.06314983932415E-05"
+        iyz="9.14204682142915E-13"
+        izz="1.35280236371004E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.576648464893826 -0.338542452042108 0.210384268469494"
+      rpy="-1.5707963267949 0.840826361981533 -3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_right_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="middle_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.0148433596977449 0.00298864897265176 -0.0247823943016086"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334793394047" />
+      <inertia
+        ixx="9.06314827261833E-05"
+        ixy="-1.12417153968407E-19"
+        ixz="-4.68198536507826E-12"
+        iyy="9.06314827261836E-05"
+        iyz="-2.11847901652458E-12"
+        izz="3.83493093160273E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="mlw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.453539006624602 -0.102391163469758 0.21948109198239"
+      rpy="1.6864743653941 -0.419536219496663 -0.0472959488827261" />
+    <parent
+      link="base_link" />
+    <child
+      link="middle_left_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="middle_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.0148433593617878 0.00298864906298198 -0.0252175054990609"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334793159348" />
+      <inertia
+        ixx="9.06315034588932E-05"
+        ixy="-2.65134547380397E-19"
+        ixz="4.04894361186352E-12"
+        iyy="9.06315034588932E-05"
+        iyz="5.52652425379657E-12"
+        izz="6.610333848216E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="mrw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.45391067430741 -0.337948668269128 0.22105292095306"
+      rpy="1.46357259696124 -0.173550651625072 0.0185846183127613" />
+    <parent
+      link="base_link" />
+    <child
+      link="middle_right_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="back_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.014843359372265 0.00298864914948446 -0.0247823943239765"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334802837936" />
+      <inertia
+        ixx="9.06314778953891E-05"
+        ixy="-1.66504380048841E-20"
+        ixz="2.54048035915944E-13"
+        iyy="9.06314778953892E-05"
+        iyz="8.71582586847909E-13"
+        izz="1.33257127206141E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.303617204869533 -0.101542452042108 0.216463837102284"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="back_left_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="back_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-0.0148433593683494 0.00298864914472619 -0.0252175055825492"
+        rpy="0 0 0" />
+      <mass
+        value="0.468334802789255" />
+      <inertia
+        ixx="9.0631498350726E-05"
+        ixy="-2.03287907341032E-20"
+        ixz="-9.38349790773039E-14"
+        iyy="9.06314983507261E-05"
+        iyz="8.63566218365631E-13"
+        izz="1.34353473215498E-19" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brw_to_base"
+    type="fixed">
+    <origin
+      xyz="0.276648464893826 -0.338542452042108 0.210384268469494"
+      rpy="-1.5707963267949 0.840826361981533 -3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="back_right_wheel_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

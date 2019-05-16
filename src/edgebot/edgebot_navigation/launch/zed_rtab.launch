@@ -1,0 +1,69 @@
+<launch>
+    <arg name="zed_namespace"		    	default="zed" />
+
+    <arg name="svo_file"                        default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
+
+    <arg name="zed_node_name"                   default="zed_node" />
+    <arg name="camera_model"                    default="zed" /> <!-- 'zed' or 'zedm' -->
+    <arg name="publish_urdf"                    default="false" />
+
+    <group ns="$(arg zed_namespace)">
+        <!-- ZED Wrapper Node-->
+        <include file="$(find zed_wrapper)/launch/zed_camera.launch">
+            <arg name="svo_file"            value="$(arg svo_file)" />
+            <arg name="node_name"           value="$(arg zed_node_name)" />
+            <arg name="camera_model"        value="$(arg camera_model)" />
+            <arg name="publish_urdf"        value="$(arg publish_urdf)" />
+        </include>
+    </group>
+  
+
+
+
+  <group ns="rtabmap">
+   
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+          <param name="frame_id" type="string" value="base_link"/>
+
+          <param name="subscribe_depth" type="bool" value="true"/>
+          <param name="subscribe_rgbd" type="bool" value="false"/>
+          <param name="subscribe_scan" type="bool" value="false"/>
+          <remap from="odom" to="/$(arg zed_namespace)/$(arg zed_node_name)/odom"/>
+          <remap from="scan" to="/scan"/>
+          <remap from="rgb/image"       to="/$(arg zed_namespace)/$(arg zed_node_name)/rgb/image_rect_color"/>
+          <remap from="depth/image"     to="/$(arg zed_namespace)/$(arg zed_node_name)/depth/depth_registered"/>
+          <remap from="rgb/camera_info" to="/$(arg zed_namespace)/$(arg zed_node_name)/rgb/camera_info"/>
+          <remap from="rgb/camera_info" to="/$(arg zed_namespace)/$(arg zed_node_name)/rgb/camera_info"/>
+
+          <param name="approx_sync"       value="true"/> 
+
+          <param name="queue_size" type="int" value="5"/>
+
+          <param name="use_action_for_goal" type="bool" value="true"/>
+          <param name="map_negative_poses_ignored" type="bool" value="true"/>
+
+          <param name="RGBD/ProximityBySpace"        type="string" value="true"/>   <!-- Local loop closure detection (using estimated position) with locations in WM -->
+	        <param name="RGBD/OptimizeFromGraphEnd"    type="string" value="true"/>  <!-- Set to false to generate map correction between /map and /odom -->
+	        <param name="Kp/MaxDepth"                  type="string" value="12.0"/>
+	        <param name="Reg/Strategy"                 type="string" value="1"/>      <!-- Loop closure transformation: 0=Visual, 1=ICP, 2=Visual+ICP -->
+	        <param name="Icp/CorrespondenceRatio"      type="string" value="0.3"/>
+	        <param name="Vis/MinInliers"               type="string" value="15"/>      <!-- 3D visual words minimum inliers to accept loop closure -->
+	        <param name="Vis/InlierDistance"           type="string" value="0.1"/>    <!-- 3D visual words correspondence distance -->
+	        <param name="RGBD/AngularUpdate"           type="string" value="0.1"/>    <!-- Update map only if the robot is moving -->
+	        <param name="RGBD/LinearUpdate"            type="string" value="0.1"/>    <!-- Update map only if the robot is moving -->
+	        <param name="RGBD/ProximityPathMaxNeighbors" type="string" value="0"/> 
+	        <param name="Rtabmap/TimeThr"              type="string" value="0"/>
+	        <param name="Mem/RehearsalSimilarity"      type="string" value="0.30"/>
+	        <param name="Reg/Force3DoF"                type="string" value="true"/>
+	        <param name="GridGlobal/MinSize"           type="string" value="20"/>
+    </node>
+  </group>
+
+
+    <!--
+    <remap from="/rtabmap/grid_map" to="/map"/>
+-   -->
+    
+
+
+</launch>
