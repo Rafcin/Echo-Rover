@@ -7,9 +7,14 @@ Echo Rover has been an ongoing project started in middle school for UCI's Rescue
 
 
 
-
-
-
-
 ### Team
 Raf Szuminski - Project Lead and Developer
+
+### Launch
+Main commands to start the project. Refer to the Wiki for more information regarding the project.
+
+```
+cd /xavier_ssd/Echo_WS 
+source devel/setup.bash
+roslaunch edgebot_bringup main.launch
+```
